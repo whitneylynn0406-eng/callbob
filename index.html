@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Bob — Bob Denkhoff Handyman Services | Louisville, KY (DRAFT)</title>
+<meta name="robots" content="noindex, nofollow">
+<!--
+  ============================================================
+  INTERNAL DRAFT — for Whitney's review only.
+  Not live. Not published. Not shown to Bob.
+  See design spec: 2026-07-22_bobby-v1-design-spec.md
+  ============================================================
+  BRAND CONCEPT (per Whitney, mid-build 2026-07-22): "Call Bob" — phone-first
+  CTA doubling as the name/wordmark itself. Goes by "Bob" (legal name Robert),
+  not "Bobby" — used throughout. Domain undecided (candidates floated:
+  callbobhandyman.com / callboblouisville.com) — NOT hardcoded anywhere below.
+  PLACEHOLDERS:
+    1. DONE 2026-07-28 — last name "Denkhoff" (title, hero byline, footer,
+                           copyright). Bob is on board as of 2026-07-28.
+    2. DONE 2026-07-28 — phone (502) 416-5170 / tel:5024165170 in all 6
+                           spots: header CTA, hero CTA, hero big number,
+                           form-section CTA, footer, floating call button
+    3. OPEN — Before/after photo frames: 3 placeholder slots in the gallery.
+                           Needs Bob's photo stash.
+    4. OPEN — Testimonials: 3 placeholder cards, clearly marked SAMPLE.
+                           Needs real reviews via the QR/review engine.
+  STILL MARKED DRAFT: <title> carries "(DRAFT)" and the footer copyright says
+    "Draft site — not published." Both are one-line flips when it ships.
+    robots meta is noindex/nofollow — remove that too on go-live.
+  ASSUMPTION FLAGGED IN SOURCE: service area stated as "Louisville, KY
+  & surrounding area" — Bob has not confirmed his actual drive radius.
+  See discovery checklist item in the design spec, section 8.
+-->
+<style>
+  :root {
+    --cream: #f3ead9;
+    --cream-deep: #e9ddc4;
+    --navy: #1c2b39;
+    --navy-deep: #14202b;
+    --rust: #b33f2e;
+    --rust-deep: #8f2f21;
+    --gold: #d9a441;
+    --gold-deep: #b9822a;
+    --ink: #23262b;
+    --ink-soft: #4b5158;
+    --line: rgba(28,43,57,0.16);
+    --paper-line: rgba(28,43,57,0.08);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", Calibri, Verdana, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display {
+    font-family: Rockwell, "Roboto Slab", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+  a { color: inherit; }
+  img, svg { max-width: 100%; display: block; }
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  }
+  .badge {
+    display: inline-block;
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: bold;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+  }
+  .badge--draft {
+    background: repeating-linear-gradient(135deg, #fff3c4, #fff3c4 8px, #ffe38a 8px, #ffe38a 16px);
+    color: #6b4c00;
+    border: 1px solid #d9a441;
+  }
+  .badge--sample {
+    background: #eee;
+    color: #666;
+    border: 1px dashed #999;
+  }
+
+  /* ---------- Internal draft ribbon (wrapper, not brand) ---------- */
+  .draft-ribbon {
+    background: #111;
+    color: #ffce54;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    letter-spacing: 0.03em;
+    border-bottom: 2px dashed #ffce54;
+  }
+  .draft-ribbon strong { color: #fff; }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cream);
+    border-bottom: 3px solid var(--rust);
+  }
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .brand {
+    font-family: Rockwell, Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .brand span.mark { color: var(--rust); }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+  .brand-wordmark { font-family: Rockwell, Georgia, serif; font-weight: 700; }
+  .brand-wordmark .call { color: var(--navy); }
+  .brand-wordmark .bob { color: var(--rust); margin-left: 0.15rem; }
+  .brand-sub {
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: 400;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .brand .placeholder-inline {
+    background: #fff3c4;
+    border: 1px dashed var(--gold-deep);
+    border-radius: 4px;
+    padding: 0 0.35rem;
+    font-size: 0.7em;
+    color: #6b4c00;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0;
+  }
+  .call-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--rust);
+    color: #fff8ec;
+    text-decoration: none;
+    font-family: Rockwell, Georgia, serif;
+    font-weight: 700;
+    padding: 0.65rem 1.1rem;
+    border-radius: 8px;
+    font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+    box-shadow: 0 3px 0 var(--rust-deep);
+    transition: transform 0.15s ease;
+    white-space: nowrap;
+  }
+  .call-cta:hover { transform: translateY(-2px); }
+  .call-cta svg { width: 1.2em; height: 1.2em; flex-shrink: 0; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(circle, rgba(243,234,217,0.12) 1.6px, transparent 1.6px) 0 0/22px 22px,
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: var(--cream);
+    padding: clamp(3rem, 8vw, 5.5rem) 0 clamp(3.5rem, 9vw, 6rem);
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -10%;
+    bottom: -30%;
+    width: 60%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(217,164,65,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+  .eyebrow {
+    font-family: "Trebuchet MS", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: bold;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 5vw, 3.3rem);
+    line-height: 1.08;
+    margin: 0.5rem 0 1rem;
+  }
+  .hero h1 .placeholder-inline {
+    background: rgba(255,255,255,0.12);
+    border: 1px dashed var(--gold);
+    border-radius: 6px;
+    padding: 0 0.4rem;
+    color: var(--gold);
+    font-family: "Courier New", monospace;
+    font-size: 0.55em;
+    vertical-align: middle;
+  }
+  .hero-callbob { color: var(--gold); }
+  .hero-byline {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.95rem;
+    color: #b9c0b0;
+    margin: 0 0 1.1rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-byline .placeholder-inline {
+    background: rgba(255,255,255,0.12);
+    border: 1px dashed var(--gold);
+    border-radius: 5px;
+    padding: 0 0.4rem;
+    color: var(--gold);
+    font-family: "Courier New", monospace;
+    font-size: 0.85em;
+  }
+  .hero p.sub {
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    color: #d9ddd1;
+    max-width: 46ch;
+    margin-bottom: 1.8rem;
+  }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+  .btn-gold {
+    background: var(--gold);
+    color: #2b1d00;
+    font-family: Rockwell, Georgia, serif;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.95rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.15rem;
+    box-shadow: 0 4px 0 var(--gold-deep);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .btn-gold:hover { transform: translateY(-2px); }
+  .btn-gold svg { width: 1.3em; height: 1.3em; }
+  .hero-phone-huge {
+    font-family: Rockwell, Georgia, serif;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .hero-phone-huge .placeholder-inline {
+    background: rgba(255,255,255,0.12);
+    border: 1px dashed var(--gold);
+    border-radius: 6px;
+    padding: 0.05rem 0.5rem;
+    color: var(--gold);
+    font-family: "Courier New", monospace;
+  }
+  .trust-inline {
+    margin-top: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    font-size: 0.92rem;
+    color: #cfd6c8;
+  }
+  .trust-inline span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .trust-inline svg { width: 1em; height: 1em; color: var(--gold); }
+
+  .hero-photo-card {
+    background: rgba(255,255,255,0.06);
+    border: 2px dashed rgba(217,164,65,0.55);
+    border-radius: 16px;
+    padding: 2.2rem 1.2rem;
+    text-align: center;
+    color: #cfd6c8;
+  }
+  .hero-photo-card .icon-wrap {
+    width: 4rem; height: 4rem; margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: rgba(217,164,65,0.15);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-photo-card .icon-wrap svg { width: 2rem; height: 2rem; color: var(--gold); }
+  .hero-photo-card strong { display: block; color: #fff; margin-bottom: 0.3rem; font-family: Rockwell, Georgia, serif; }
+
+  /* ---------- Trust strip ---------- */
+  .trust-strip {
+    background: var(--cream-deep);
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .trust-strip-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 2.2rem 0;
+  }
+  @media (max-width: 760px) {
+    .trust-strip-inner { grid-template-columns: repeat(2, 1fr); }
+  }
+  .trust-item { text-align: center; }
+  .trust-item .icon-wrap {
+    width: 3rem; height: 3rem; margin: 0 auto 0.6rem;
+    border-radius: 50%;
+    background: rgba(179,63,46,0.1);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .trust-item svg { width: 1.6rem; height: 1.6rem; color: var(--rust); }
+  .trust-item .label {
+    font-family: Rockwell, Georgia, serif;
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--navy);
+  }
+  .trust-item .sub { font-size: 0.82rem; color: var(--ink-soft); }
+
+  /* ---------- Values row (added 2026-07-28, per Whitney) ---------- */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.6rem;
+    margin: 0 0 2.2rem;
+  }
+  @media (max-width: 760px) {
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .values-note {
+    max-width: 44rem;
+    margin: 0 auto 2.9rem;
+    text-align: center;
+    font-size: 1.04rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 1.15rem 0;
+  }
+  .values-note strong { color: var(--navy); }
+  .subhead {
+    font-family: Rockwell, Georgia, serif;
+    font-size: 1.18rem;
+    color: var(--navy);
+    text-align: center;
+    margin: 0 0 1.3rem;
+  }
+
+  /* ---------- Section shell ---------- */
+  section { padding: clamp(3rem, 7vw, 4.5rem) 0; }
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2.2rem;
+  }
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+    color: var(--navy);
+  }
+  .section-head .kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    color: var(--rust);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ---------- Services ---------- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.3rem;
+  }
+  .service-card {
+    background: #fffaf0;
+    border: 1px solid var(--paper-line);
+    border-top: 4px solid var(--rust);
+    border-radius: 10px;
+    padding: 1.6rem 1.4rem;
+    box-shadow: 0 6px 18px rgba(28,43,57,0.06);
+  }
+  .service-card .icon-wrap {
+    width: 3rem; height: 3rem; margin-bottom: 0.9rem;
+    border-radius: 10px;
+    background: rgba(28,43,57,0.06);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .service-card svg { width: 1.7rem; height: 1.7rem; color: var(--navy); }
+  .service-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 0.4rem; }
+  .service-card p { margin: 0; color: var(--ink-soft); font-size: 0.94rem; }
+
+  /* ---------- Before/After gallery ---------- */
+  .gallery-section {
+    background:
+      radial-gradient(circle, rgba(243,234,217,0.06) 1.6px, transparent 1.6px) 0 0/22px 22px,
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: var(--cream);
+  }
+  .gallery-section .section-head h2 { color: #fff; }
+  .gallery-section .kicker { color: var(--gold); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.4rem;
+  }
+  .photo-frame {
+    border: 2px dashed rgba(217,164,65,0.6);
+    border-radius: 12px;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.4rem;
+    background: rgba(255,255,255,0.04);
+    gap: 0.7rem;
+  }
+  .photo-frame .icon-wrap svg { width: 2.1rem; height: 2.1rem; color: var(--gold); }
+  .photo-frame strong { font-family: Rockwell, Georgia, serif; color: #fff; font-size: 0.98rem; }
+  .photo-frame span.note { font-size: 0.82rem; color: #b9c0b0; max-width: 26ch; }
+
+  /* ---------- Why Bob ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 5vw, 3rem);
+    align-items: center;
+  }
+  @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
+  .photo-placeholder {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    border: 2px dashed var(--rust);
+    background: repeating-linear-gradient(135deg, #fff, #fff 10px, #f4e9d6 10px, #f4e9d6 20px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 1.5rem; gap: 0.6rem;
+  }
+  .photo-placeholder .icon-wrap svg { width: 2.4rem; height: 2.4rem; color: var(--rust); }
+  .photo-placeholder strong { font-family: Rockwell, Georgia, serif; color: var(--navy); }
+  .photo-placeholder span { font-size: 0.85rem; color: var(--ink-soft); max-width: 22ch; }
+  .about-copy h2 { color: var(--navy); margin-bottom: 1rem; }
+  .about-copy p { color: var(--ink-soft); margin: 0 0 1rem; font-size: 1.02rem; }
+  .about-list { list-style: none; margin: 1.4rem 0 0; padding: 0; display: grid; gap: 0.7rem; }
+  .about-list li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.98rem; color: var(--ink); }
+  .about-list svg { width: 1.2rem; height: 1.2rem; color: var(--rust); flex-shrink: 0; margin-top: 0.15rem; }
+
+  /* ---------- Testimonials ---------- */
+  .testimonials-section { background: var(--cream-deep); }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.4rem;
+  }
+  .t-card {
+    position: relative;
+    background: #fffaf0;
+    border: 1px dashed #9a9a9a;
+    border-radius: 10px;
+    padding: 1.6rem 1.4rem 1.3rem;
+    overflow: hidden;
+  }
+  .t-card::before {
+    content: "SAMPLE";
+    position: absolute;
+    top: 0.8rem;
+    right: -2.1rem;
+    transform: rotate(35deg);
+    background: #999;
+    color: #fff;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.62rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 2.4rem;
+  }
+  .t-stars { color: var(--gold-deep); font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+  .t-quote { color: #666; font-style: italic; font-size: 0.96rem; margin: 0 0 0.9rem; }
+  .t-name { font-size: 0.85rem; color: #888; font-weight: bold; }
+  .testimonials-note {
+    margin-top: 1.6rem;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  /* ---------- Estimate form (visual placeholder only) ---------- */
+  .estimate-section { background: var(--rust); color: #fff8ec; position: relative; }
+  .estimate-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 3rem);
+    align-items: start;
+  }
+  @media (max-width: 820px) { .estimate-grid { grid-template-columns: 1fr; } }
+  .estimate-copy h2 { color: #fff; }
+  .estimate-copy p { color: #ffe4d8; max-width: 42ch; }
+  .estimate-copy .call-cta { margin-top: 1rem; background: var(--navy); box-shadow: 0 3px 0 var(--navy-deep); }
+  .form-card {
+    background: #fff8ec;
+    border-radius: 14px;
+    padding: 1.6rem;
+    color: var(--ink);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  .form-card .form-draft-tag {
+    position: absolute;
+    top: -0.7rem;
+    left: 1.2rem;
+  }
+  .form-card label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--navy);
+    margin: 0.9rem 0 0.3rem;
+  }
+  .form-card label:first-of-type { margin-top: 0.4rem; }
+  .form-card input, .form-card textarea {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #cbb98f;
+    border-radius: 7px;
+    background: #fdf6e8;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #999;
+  }
+  .form-card textarea { resize: none; height: 4.2rem; }
+  .form-card .disabled-submit {
+    margin-top: 1.2rem;
+    width: 100%;
+    padding: 0.8rem;
+    background: #ccc;
+    color: #666;
+    border: none;
+    border-radius: 8px;
+    font-family: Rockwell, Georgia, serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: not-allowed;
+  }
+  .form-note {
+    font-size: 0.8rem;
+    color: #8a7a55;
+    margin-top: 0.7rem;
+    text-align: center;
+  }
+
+  /* ---------- Footer ---------- */
+  footer.site {
+    background: var(--navy-deep);
+    color: #cfd6c8;
+    padding: 2.6rem 0 1.6rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 2rem;
+    padding-bottom: 1.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
+  footer .brand { color: #fff; }
+  footer .brand-wordmark .call { color: #fff; }
+  footer .brand-wordmark .bob { color: var(--gold); }
+  footer .brand-sub { color: #8a9186; }
+  .footer-fullname {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #9aa39a;
+  }
+  footer h4 {
+    font-family: Rockwell, Georgia, serif;
+    color: var(--gold);
+    font-size: 0.95rem;
+    margin: 0 0 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  footer p, footer a { font-size: 0.92rem; color: #cfd6c8; text-decoration: none; }
+  footer .foot-bottom {
+    padding-top: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    color: #8a9186;
+  }
+  .placeholder-inline-dark {
+    background: rgba(217,164,65,0.15);
+    border: 1px dashed var(--gold);
+    border-radius: 5px;
+    padding: 0 0.4rem;
+    color: var(--gold);
+    font-family: "Courier New", monospace;
+  }
+
+  /* ---------- Floating call button ---------- */
+  .floating-call {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 60;
+    background: var(--rust);
+    color: #fff8ec;
+    border-radius: 999px;
+    width: 3.6rem;
+    height: 3.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    text-decoration: none;
+    animation: pulse-ring 2.4s ease-out infinite;
+  }
+  .floating-call svg { width: 1.7rem; height: 1.7rem; }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(179,63,46,0.55), 0 6px 18px rgba(0,0,0,0.35); }
+    70% { box-shadow: 0 0 0 14px rgba(179,63,46,0), 0 6px 18px rgba(0,0,0,0.35); }
+    100% { box-shadow: 0 0 0 0 rgba(179,63,46,0), 0 6px 18px rgba(0,0,0,0.35); }
+  }
+
+  @media (max-width: 640px) {
+    .floating-call { display: flex; }
+    section { padding: 2.4rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="draft-ribbon">
+  <strong>PREVIEW FOR BOB</strong> — not live yet · photos, reviews, the service list, and how far you'll drive still need your input · tell Whitney what to change
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="site-header-inner">
+    <div class="brand">
+      <span class="mark">&#9670;</span>
+      <span class="brand-text">
+        <span class="brand-wordmark"><span class="call">Call</span><span class="bob">Bob</span></span>
+        <span class="brand-sub">Handyman Services</span>
+      </span>
+    </div>
+    <a class="call-cta" href="tel:5024165170">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      (502) 416-5170
+    </a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Louisville, KY &amp; Surrounding Area</span>
+      <h1>Need it fixed? <span class="hero-callbob">Call Bob.</span></h1>
+      <p class="hero-byline">Bob Denkhoff — Handyman Services</p>
+      <p class="sub">One guy, one van, decades of know-how. Bob's done small repairs and built whole houses from the ground up — no crew, no middleman, no runaround.</p>
+      <div class="hero-ctas">
+        <a class="btn-gold" href="tel:5024165170">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call Bob for a Free Quote
+        </a>
+        <a class="hero-phone-huge" href="tel:5024165170">(502) 416-5170</a>
+      </div>
+      <div class="trust-inline">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Decades of hands-on experience</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg> Has built entire homes, start to finish</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg> Fair, honest pricing</span>
+      </div>
+    </div>
+    <div class="hero-photo-card">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+      </div>
+      <strong>Bob's photo goes here</strong>
+      <span>A plain, friendly photo of Bob on a job — no stock photos.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust-strip" style="padding:0;">
+  <div class="wrap trust-strip-inner">
+    <div class="trust-item">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="label">Decades of Experience</div>
+      <div class="sub">In homes across Louisville</div>
+    </div>
+    <div class="trust-item">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg></div>
+      <div class="label">Built Whole Homes</div>
+      <div class="sub">Ground-up, not just repairs</div>
+    </div>
+    <div class="trust-item">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="label">Fair Pricing</div>
+      <div class="sub">No inflated "company" markup</div>
+    </div>
+    <div class="trust-item">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="label">Local</div>
+      <!-- ASSUMPTION: service area assumed as Louisville metro per known facts; Bob has not confirmed his actual drive radius. Confirm during discovery. -->
+      <div class="sub">Louisville, KY &amp; surrounding area</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES (DRAFT) ============ -->
+<!-- DRAFT: this list is a plausible handyman service set, not confirmed with Bob. Correct against what he actually does before anything ships. -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker">How He Works</span>
+        <h2>A Few Things He's Known For</h2>
+      </div>
+      <span class="badge badge--draft">DRAFT — confirm services with Bob</span>
+    </div>
+
+    <!-- VALUES ROW — added 2026-07-28 per Whitney: "he's got some pretty hard
+         values. Craftsman-level quality. Follow through. Good communication.
+         Practical." Plus the referral point: he won't take work he isn't
+         qualified for, and he'll point you to someone who is. -->
+    <div class="values-grid">
+      <div class="trust-item">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.6 1.4 6.8L12 17.1 5.9 20.5l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div>
+        <div class="label">Craftsman-Level Quality</div>
+        <div class="sub">Built to last, not just to get done. If it isn't right, it isn't finished.</div>
+      </div>
+      <div class="trust-item">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M9 15l2 2 4-4"/></svg></div>
+        <div class="label">Follow Through</div>
+        <div class="sub">When Bob says he'll be there Tuesday, he's there Tuesday.</div>
+      </div>
+      <div class="trust-item">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg></div>
+        <div class="label">Straight Communication</div>
+        <div class="sub">What it needs, what it costs, and when it's not a job for him.</div>
+      </div>
+      <div class="trust-item">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg></div>
+        <div class="label">Practical</div>
+        <div class="sub">The fix that actually solves it — not the biggest invoice he could write.</div>
+      </div>
+    </div>
+
+    <p class="values-note">
+      <strong>He won't take on work he isn't the right man for.</strong>
+      If it needs a licensed electrician or a plumber, or it's outside what he does,
+      he'll tell you straight — and he almost always knows the right person to call.
+    </p>
+
+    <p class="subhead">The work he takes on</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M12 3v18M3 12h18"/></svg></div>
+        <h3>Windows &amp; Doors</h3>
+        <p>Replacement, repair, and everything that needs to open, close, and seal right.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
+        <h3>Decks &amp; Carpentry</h3>
+        <p>Built, rebuilt, or repaired — framing and finish work done to last.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.77z"/></svg></div>
+        <h3>General Repairs</h3>
+        <p>The stuff that's been "on the list" too long — drywall, trim, doors, and hardware.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4M21 7v10l-9 4M12 11v10"/></svg></div>
+        <h3>Small Home Projects</h3>
+        <p>Bathroom and kitchen touch-ups, small renovations — his bread and butter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER GALLERY ============ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker">The Work Speaks</span>
+        <h2>Before &amp; After</h2>
+      </div>
+    </div>
+    <div class="gallery-grid">
+      <div class="photo-frame">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <strong>Full window replacement (in progress now)</strong>
+        <span class="note">Before/after photos go here</span>
+      </div>
+      <div class="photo-frame">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <strong>Bob's deck rebuild</strong>
+        <span class="note">Before/after photos go here</span>
+      </div>
+      <div class="photo-frame">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <strong>Kitchen or bath repair job</strong>
+        <span class="note">Before/after photos go here</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY BOB ============ -->
+<section>
+  <div class="wrap about-grid">
+    <div class="photo-placeholder">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+      <strong>Bob's photo</strong>
+      <span>Casual, on-the-job shot — goes here</span>
+    </div>
+    <div class="about-copy">
+      <span class="kicker">Who You're Hiring</span>
+      <h2>Decades On The Job, Still Doing It Himself</h2>
+      <p>Bob's spent his whole working life fixing, building, and repairing homes around Louisville — no office, no sales team, just him and his van. He's built entire houses from the foundation up, so a leaky window or a wobbly deck isn't a stretch. It's the easy stuff.</p>
+      <p>Most of his work is smaller residential jobs — the repairs and projects other companies don't want to bother with, or price too high to make sense. Bob prices it fair, does it right, and moves on to the next one.</p>
+      <ul class="about-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Decades of real, hands-on experience</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Has built entire homes from the ground up</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Small jobs are his specialty, not an afterthought</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Prices fair — no big-company markup</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS (SAMPLE PLACEHOLDERS) ============ -->
+<section class="testimonials-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker">What Customers Say</span>
+        <h2>Decades of Repeat Customers</h2>
+      </div>
+      <span class="badge badge--sample">3 of ~12 planned — samples only, not real</span>
+    </div>
+    <div class="testimonial-grid">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"[SAMPLE — a real customer quote goes here once reviews start coming in.]"</p>
+        <div class="t-name">— Sample placeholder, not a real customer</div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"[SAMPLE — a real customer quote goes here once reviews start coming in.]"</p>
+        <div class="t-name">— Sample placeholder, not a real customer</div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"[SAMPLE — a real customer quote goes here once reviews start coming in.]"</p>
+        <div class="t-name">— Sample placeholder, not a real customer</div>
+      </div>
+    </div>
+    <p class="testimonials-note">Real reviews will be gathered from Bob's long-time customers and Google Business Profile — none exist on this draft yet.</p>
+  </div>
+</section>
+
+<!-- ============ ESTIMATE FORM (VISUAL PLACEHOLDER ONLY) ============ -->
+<section class="estimate-section" id="estimate">
+  <div class="wrap estimate-grid">
+    <div class="estimate-copy">
+      <span class="kicker" style="color:#ffe4d8;">Get Started</span>
+      <h2>Request a Free Estimate</h2>
+      <p>Fastest way to reach Bob is still the phone — call or text and he'll get right back to you.</p>
+      <a class="call-cta" href="tel:5024165170">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (502) 416-5170
+      </a>
+    </div>
+    <div class="form-card">
+      <span class="badge badge--draft form-draft-tag">DRAFT — form not wired yet</span>
+      <label for="f-name">Name</label>
+      <input id="f-name" type="text" placeholder="Not functional in this draft" disabled>
+      <label for="f-phone">Phone</label>
+      <input id="f-phone" type="text" placeholder="Not functional in this draft" disabled>
+      <label for="f-job">What do you need done?</label>
+      <textarea id="f-job" placeholder="Not functional in this draft" disabled></textarea>
+      <button class="disabled-submit" disabled>Coming Soon</button>
+      <p class="form-note">This form is a visual placeholder only. No backend is wired. Call or text Bob directly for now — the phone always works.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">
+          <span class="brand-wordmark"><span class="call">Call</span><span class="bob">Bob</span></span>
+        </div>
+        <p class="footer-fullname">Bob Denkhoff Handyman Services</p>
+        <p style="margin-top:0.8rem; max-width:32ch;">Experienced handyman serving Louisville, KY and the surrounding area. Small jobs, big jobs, done right.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p><a href="tel:5024165170">(502) 416-5170</a></p>
+        <p style="margin-top:0.4rem;">Call or text — that's the fastest way to reach him.</p>
+      </div>
+      <div>
+        <h4>Service Area</h4>
+        <!-- ASSUMPTION: exact drive radius not yet confirmed with Bob -->
+        <p>Louisville, KY &amp; surrounding area</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Bob Denkhoff Handyman. Draft site — not published.</span>
+      <span>Built by family, not a marketing company.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="floating-call" href="tel:5024165170" aria-label="Call Bob now">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+</a>
+
+</body>
+</html>
